@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" class="blue" manifest="tasks.appcache">
+	<!-- the class above allows the user to change the color scheme of the app, the setting is stored locally-->
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,
+                                       initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <title>Guer</title>
+        <link rel="stylesheet"
+              href="http://fonts.googleapis.com/css?family=Carter+One">
+			  <!-- that's just a font...there are more...-->
+        <link rel="stylesheet" href="g1.css">
+        <script src="g1.js"></script>
+    </head>
+    <body class="list">
+	<!-- the body is set with a class here, then in the CSS, when the body and a "section" have the same class, that section is un-hidden, so to speak-->
+        <header>
+            <h1><span id="user_name">My</span> Guerilla Garden</h1>
+			<!-- the user can also store their name, in addition to the color scheme; then their name will display in the span above, rather than the generic "My"-->
+            <nav>
+				<!-- don't know if you like the nav buttons below, but they're very handy for testing; we can get rid of them at the end if you'd prefer to conserve real estate; or make them smaller, or whatever-->
+                <ul>
+                    <li><a href="#list" class="list">View Plots</a></li>
+                    <li><a href="#add" class="add">Add Plot</a></li>
+                    <li><a href="#settings" class="settings">Settings</a></li>
+					<!-- the hyperlinks just cause a #blah to appear in the URL, then in the JS there is a listener for changes in the URL (the "location"), that's how we have all the "sections" in the same HTML page, but only one displayed at a time-->
+                </ul>
+            </nav>
+        </header>
+        <section class="list"> <!--this is the "ViewGardensPage"-->
+            <form name="search">
+                <input type="search" name="query" placeholder="Search plots...">
+				<!-- we can probably get rid of the search feature, but it's sort of neat; not sure how many users would have enough Plots that they'd need to search them; it does show that we can use the "Indexing" feature of IndexedDB, though...-->
+            </form>
+            <ul id="plot_list"></ul>
+			<!-- this is an empty list that will be populated with the Plots later-->
+        </section>
+        <section class="add"> <!-- this is where they'd add the new plots-->
+            <form name="add">
+                <label>
+                    Plot Name
+                    <input type="text" name="plotname">
+                </label>
+                <label>
+                    Plot Description
+                    <textarea name="desc"></textarea>
+                </label>
+                <label>
+                    Germination Time (in days)
+                    <input type="number" name="germ" min="1" max="24">
+                </label>
+                <label>
+                    Maturation Time (in days)
+                    <input type="number" name="mature" min="1" max="330">
+                </label>
+                <input type="submit" value="Add Plot">
+				<input type="button" id="addPlotCancel" value="Cancel">
+				<!-- the cancel button calls a function in JS that redirects to the "list" section, could change where it redirects in the JS if we like-->
+            </form>
+        </section>
+        <section class="settings">
+		<!-- we didn't discuss this, but it was interesting to play with the localStorage (as opposed to sessionStorage, which is what we used in pset7); we could remove this section entirely, remove the name and color scheme settings, etc., but it might be handy to leave the features to dump the database...otherwise the user would have no obvious way to remove the IndexedDB from their machine (it can obviously be done, but we should make it easy-->
+            <form name="settings">
+                <label>
+                    Your Name
+                    <input type="text" name="name">
+                </label>
+                <label>
+                    Color Scheme
+                    <select name="color_scheme">
+                        <option>Blue</option>
+                        <option>Red</option>
+                        <option>Green</option>
+                    </select>
+                </label>
+                <input type="submit" value="Save Settings">
+                <input type="reset" value="Reset All Data">
+            </form>
+        </section>
+
+
+    </body>
+</html>
